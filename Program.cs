@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,6 +13,7 @@ class Program
     static void Main()
     {
         string filePath = "input.csv";
+        characters = ReadCharactersFromCsv(filePath);
         characters = ReadCharactersFromCsv(filePath);
 
         while (true)
