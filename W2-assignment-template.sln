@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "W2-assignment-template", "W2-assignment-template.csproj", "{A929E9B5-1006-4391-B55C-B23DB20DFB71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelfosseAssignment2", "DelfosseAssignment2.csproj", "{A929E9B5-1006-4391-B55C-B23DB20DFB71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

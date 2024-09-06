@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using CsvHelper;
+using CsvHelper.Configuration;
+using CsvHelper.Configuration.Attributes;
 
 class Program
 {
-    static string[] lines;
+    static List<Character> characters;
 
     static void Main()
     {
         string filePath = "input.csv";
-        lines = File.ReadAllLines(filePath);
+        characters = ReadCharactersFromCsv(filePath);
 
         while (true)
         {
@@ -23,13 +28,15 @@ class Program
             switch (choice)
             {
                 case "1":
-                    DisplayAllCharacters(lines);
+                    DisplayAllCharacters(characters);
                     break;
                 case "2":
-                    AddCharacter(ref lines);
+                    AddCharacter(characters);
+                    WriteCharactersToCsv(filePath, characters);
                     break;
                 case "3":
-                    LevelUpCharacter(lines);
+                    LevelUpCharacter(characters);
+                    WriteCharactersToCsv(filePath, characters);
                     break;
                 case "4":
                     return;
@@ -40,77 +47,127 @@ class Program
         }
     }
 
-    static void DisplayAllCharacters(string[] lines)
+    static List<Character> ReadCharactersFromCsv(string filePath)
     {
-        // Skip the header row
-        for (int i = 1; i < lines.Length; i++)
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
-            string line = lines[i];
+            NewLine = Environment.NewLine,
+            HeaderValidated = null
+        };
 
-            string name;
-            int commaIndex;
-
-            // Check if the name is quoted
-            if (line.StartsWith("\""))
-            {
-                // TODO: Find the closing quote and the comma right after it
-                // TODO: Remove quotes from the name if present and parse the name
-                // name = ...
-            }
-            else
-            {
-                // TODO: Name is not quoted, so store the name up to the first comma
-                // name =
-            }
-
-            // TODO: Parse characterClass, level, hitPoints, and equipment
-            // string characterClass = ...
-            // int level = ...
-            // int hitPoints = ...
-
-            // TODO: Parse equipment noting that it contains multiple items separated by '|'
-            // string[] equipment = ...
-
-            // Display character information
-            // Console.WriteLine($"Name: {name}, Class: {characterClass}, Level: {level}, HP: {hitPoints}, Equipment: {string.Join(", ", equipment)}");
+        using (var reader = new StreamReader(filePath))
+        using (var csv = new CsvReader(reader, config))
+        {
+            csv.Context.RegisterClassMap<CharacterMap>();
+            return new List<Character>(csv.GetRecords<Character>());
         }
     }
 
-    static void AddCharacter(ref string[] lines)
+    static void WriteCharactersToCsv(string filePath, List<Character> characters)
     {
-        // TODO: Implement logic to add a new character
-        // Prompt for character details (name, class, level, hit points, equipment)
-        // DO NOT just ask the user to enter a new line of CSV data or enter the pipe-separated equipment string
-        // Append the new character to the lines array
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            NewLine = Environment.NewLine
+        };
+
+        using (var writer = new StreamWriter(filePath))
+        using (var csv = new CsvWriter(writer, config))
+        {
+            csv.Context.RegisterClassMap<CharacterMap>();
+            csv.WriteRecords(characters);
+            writer.Flush(); // Ensure all data is flushed to the file
+        }
     }
 
-    static void LevelUpCharacter(string[] lines)
+    static void DisplayAllCharacters(List<Character> characters)
+    {
+        foreach (var character in characters)
+        {
+            string equipment = character.Equipment != null ? string.Join(", ", character.Equipment) : "None";
+            Console.WriteLine($"Name: {character.Name}, Class: {character.CharacterClass}, Level: {character.Level}, HP: {character.HitPoints}, Equipment: {equipment}");
+        }
+    }
+
+    static void AddCharacter(List<Character> characters)
+    {
+        Console.Write("Enter name: ");
+        string name = Console.ReadLine();
+        name = FormatName(name);
+
+        Console.Write("Enter class: ");
+        string characterClass = Console.ReadLine();
+        Console.Write("Enter level: ");
+        int level = int.Parse(Console.ReadLine());
+        Console.Write("Enter hit points: ");
+        int hitPoints = int.Parse(Console.ReadLine());
+        Console.Write("Enter equipment (separated by '|'): ");
+        string[] equipment = Console.ReadLine().Split('|');
+
+        characters.Add(new Character
+        {
+            Name = name,
+            CharacterClass = characterClass,
+            Level = level,
+            HitPoints = hitPoints,
+            Equipment = equipment
+        });
+    }
+
+    static string FormatName(string name)
+    {
+        var parts = name.Split(' ');
+        if (parts.Length > 1)
+        {
+            return $"{parts[1]}, {parts[0]}";
+        }
+        return name;
+    }
+
+    static void LevelUpCharacter(List<Character> characters)
     {
         Console.Write("Enter the name of the character to level up: ");
         string nameToLevelUp = Console.ReadLine();
 
-        // Loop through characters to find the one to level up
-        for (int i = 1; i < lines.Length; i++)
+        foreach (var character in characters)
         {
-            string line = lines[i];
-
-            // TODO: Check if the name matches the one to level up
-            // Do not worry about case sensitivity at this point
-            if (line.Contains(nameToLevelUp))
+            if (character.Name.Equals(nameToLevelUp, StringComparison.OrdinalIgnoreCase))
             {
-
-                // TODO: Split the rest of the fields locating the level field
-                // string[] fields = ...
-                // int level = ...
-
-                // TODO: Level up the character
-                // level++;
-                // Console.WriteLine($"Character {name} leveled up to level {level}!");
-
-                // TODO: Update the line with the new level
-                // lines[i] = ...
-                break;
+                character.Level++;
+                Console.WriteLine($"Character {character.Name} leveled up to level {character.Level}!");
+                return;
             }
         }
+
+        Console.WriteLine("Character not found.");
+    }
+}
+
+public class Character
+{
+    [Name("Name")]
+    public string Name { get; set; }
+
+    [Name("Class")]
+    public string CharacterClass { get; set; }
+
+    [Name("Level")]
+    public int Level { get; set; }
+
+    [Name("HP")]
+    public int HitPoints { get; set; }
+
+    [Name("Equipment")]
+    public string[] Equipment { get; set; }
+}
+
+public sealed class CharacterMap : ClassMap<Character>
+{
+    public CharacterMap()
+    {
+        Map(m => m.Name).Name("Name");
+        Map(m => m.CharacterClass).Name("Class");
+        Map(m => m.Level).Name("Level");
+        Map(m => m.HitPoints).Name("HP");
+        Map(m => m.Equipment).Name("Equipment").Convert(row => string.Join("|", row.Value.Equipment ?? new string[0]));
     }
 }

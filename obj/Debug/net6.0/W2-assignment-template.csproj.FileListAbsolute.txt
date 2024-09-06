@@ -1,0 +1,16 @@
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\bin\Debug\net6.0\W2-assignment-template.exe
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\bin\Debug\net6.0\input.csv
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\bin\Debug\net6.0\W2-assignment-template.deps.json
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\bin\Debug\net6.0\W2-assignment-template.runtimeconfig.json
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\bin\Debug\net6.0\W2-assignment-template.dll
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\bin\Debug\net6.0\W2-assignment-template.pdb
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.AssemblyInfoInputs.cache
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.AssemblyInfo.cs
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.csproj.CoreCompileInputs.cache
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.sourcelink.json
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.dll
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\refint\W2-assignment-template.dll
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.pdb
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\W2-assignment-template.genruntimeconfig.cache
+C:\Users\er0r3\Source\Repos\w2-expanding-on-arrays-and-complex-csv-parsing-er0r34\obj\Debug\net6.0\ref\W2-assignment-template.dll

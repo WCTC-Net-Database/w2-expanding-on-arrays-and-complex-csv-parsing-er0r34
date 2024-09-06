@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "W2-assignment-template/1.0.0": {
+        "runtime": {
+          "W2-assignment-template.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "W2-assignment-template/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
